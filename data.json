@@ -1,0 +1,274 @@
+{
+    "sender_known_malicious": {
+        "Detailed description": "Indicates whether the sender's email address is already flagged in internal or external threat intelligence feeds. Helps in fast identification and blocking of known bad actors without requiring additional analysis.",
+        "Type Explanation": "1(malicious), 0(non-malicious)"
+    },
+    "sender_domain_reputation_score": {
+        "Detailed description": "Represents a quantitative reputation score of the sender's domain based on historical behavior, known associations, and external threat intelligence. Low scores may suggest spam or malicious activity sources.",
+        "Type Explanation": "1(Good Reputation), 0(Bad Reputation ) \nAny value inbetween based on the confidencce level"
+    },
+    "sender_spoof_detected": {
+        "Detailed description": "Determines if the sender\u2019s address appears to impersonate another trusted domain using techniques like domain similarity or visual homographs. Useful in detecting phishing and BEC attempts.",
+        "Type Explanation": "1(Spoofed domain), 0(non-spoofed domain)"
+    },
+    "sender_temp_email_likelihood": {
+        "Detailed description": "Estimates the likelihood that the sender is using a disposable or temporary email address, which is often associated with spam campaigns, fraud, or low-reputation activity.",
+        "Type Explanation": "1.0(temporary email),0.0(not-temporary email), any value inbeteen  (suspicious) based on the confidence level "
+    },
+    "dmarc_enforced": {
+        "Detailed description": "Indicates whether the DMARC policy published by the domain owner is enforced, ensuring that messages failing SPF/DKIM checks are rejected or quarantined. A strong indicator of sender authenticity.",
+        "Type Explanation": "1(enforced), 0(not enforced)"
+    },
+    "packer_detected": {
+        "Detailed description": "Flags whether a known executable packer or obfuscator is used in the attachment. Obfuscators hide malicious intent and are a common feature in malware to bypass detection.",
+        "Type Explanation": "1(obfuscated attachment), 0(non-obfuscated attachment)"
+    },
+    "any_file_hash_malicious": {
+        "Detailed description": "True if the cryptographic hash (e.g., SHA-256) of any attachment matches a known malware sample in global or internal threat intelligence databases. Strong indicator of known threats.",
+        "Type Explanation": "1(malicious), 0(non-malicious)"
+    },
+    "max_metadata_suspicious_score": {
+        "Detailed description": "Reflects the highest suspicious score derived from file metadata analysis (e.g., authorship anomalies, unusual timestamps). Helps detect files that may not be overtly malicious but exhibit risky traits.",
+        "Type Explanation": "Maximum metadata score across all attachment; 1- Most suspecious 0- Least suspecious"
+    },
+    "malicious_attachment_count": {
+        "Detailed description": "Indicates the total number of attachments in an email that have been positively identified as malicious through sandbox or static detection. A critical risk signal.",
+        "Type Explanation": "X (Number of malicious file marked as malicious), 0 (no malicious file found across)"
+    },
+    "has_executable_attachment": {
+        "Detailed description": "True if the email contains executable file attachments (e.g., .exe, .js, .vbs). These files can run code on the user\u2019s system and are a high-risk vector for malware.",
+        "Type Explanation": "1(executable), 0(not-executable)"
+    },
+    "unscannable_attachment_present": {
+        "Detailed description": "Flags if one or more attachments could not be scanned due to encryption, corruption, or unsupported format. Such files evade analysis and can conceal malicious content.",
+        "Type Explanation": "1(Unscannable files), 0(Scannable files) "
+    },
+    "total_components_detected_malicious": {
+        "Detailed description": "Represents the total count of file components extracted (e.g., embedded files, scripts) that were identified as malicious using static or behavioral analysis. Key signal in threat scoring.",
+        "Type Explanation": "X (Sum of all malicious components), 0(Zero malicious component found)"
+    },
+    "total_yara_match_count": {
+        "Detailed description": "Number of YARA rules that matched against the attachment\u2019s content. YARA rules are pattern-based signatures for identifying malware families, suspicious characteristics, and threat behaviors.",
+        "Type Explanation": "X (Total number of yara rules hit), 0 (Zero yara hits)"
+    },
+    "total_ioc_count": {
+        "Detailed description": "Counts how many indicators of compromise (IOCs) such as malicious domains, IPs, or hashes were found in files. Used to correlate with known campaigns or threat actors.",
+        "Type Explanation": "X (Total number of ioc hits), 0 (zero ioc found)"
+    },
+    "max_behavioral_sandbox_score": {
+        "Detailed description": "Highest severity score from behavioral sandboxing engines. Measures runtime behaviors like code injection, file writes, or registry edits that indicate malicious activity.",
+        "Type Explanation": "X (Maximum threat score from execution out of all attachments)\n1- worst severity score\n0- best score\nanything inbetween"
+    },
+    "max_amsi_suspicion_score": {
+        "Detailed description": "Indicates the level of suspicion derived from Microsoft's AMSI engine, especially for Office macros or scripts. High scores point to script-based threats or obfuscated behavior.",
+        "Type Explanation": "X (Maximum AMSI score out of all attachments)\n1- worst severity score\n0- best score\nanything inbetween"
+    },
+    "any_macro_enabled_document": {
+        "Detailed description": "Flags if any document attachments contain macros, which are often exploited for malware delivery. Macro-enabled documents are especially risky in business email environments.",
+        "Type Explanation": "1(Macros present), 0(zero macros found) "
+    },
+    "any_vbscript_javascript_detected": {
+        "Detailed description": "Indicates the presence of JavaScript or VBScript code within attachments, which are often used to execute payloads or redirect users to malicious websites.",
+        "Type Explanation": "1(VB/JS-Script present), 0(zero VB/JS-Script present) "
+    },
+    "any_active_x_objects_detected": {
+        "Detailed description": "True if the attachment contains ActiveX controls, which are deprecated but still used in legacy malware. ActiveX is capable of executing code and modifying systems.",
+        "Type Explanation": "1(Active-X found), 0(Not found) "
+    },
+    "any_network_call_on_open": {
+        "Detailed description": "Detects whether the file attempts to make outbound network connections upon being opened. This is a strong behavioral signal of malware trying to call back to C2 servers.",
+        "Type Explanation": "1(Network connection present), 0(no network connection present) "
+    },
+    "max_exfiltration_behavior_score": {
+        "Detailed description": "Maximum score indicating likelihood of data exfiltration behavior such as unauthorized file transfer or beaconing during sandbox execution. Critical for advanced threat detection.",
+        "Type Explanation": "X (Maximum data exfiltration score out of all attachments)\n1- worst severity score\n0- best score\nanything inbetween"
+    },
+    "any_exploit_pattern_detected": {
+        "Detailed description": "Flags presence of known exploit code patterns or techniques within attachments, such as buffer overflows or RCE payloads. Tied to exploit kits or zero-day delivery.",
+        "Type Explanation": "1(Exploit Pattern exist), 0(Zero exploit pattern found) "
+    },
+    "total_embedded_file_count": {
+        "Detailed description": "Number of additional files embedded within attachments. Higher counts may indicate document-based malware with embedded payloads or multi-stage delivery mechanisms.",
+        "Type Explanation": "X (Files embedded in attachments), 0 (Zero embedded files found)"
+    },
+    "max_suspicious_string_entropy_score": {
+        "Detailed description": "Maximum entropy score from strings within the file. High entropy may suggest encrypted or obfuscated payloads, often used to hide malicious intent from static scanners.",
+        "Type Explanation": "X (Maximum entropy score across all attachments) "
+    },
+    "max_sandbox_execution_time": {
+        "Detailed description": "Longest execution time among attachments in sandbox environments. Can be used to detect time-delayed payloads or stealthy behavior that avoids fast scans.",
+        "Type Explanation": "X (Maximum delay *in second* execution across all file)"
+    },
+    "unique_parent_process_names": {
+        "Detailed description": "List of unique parent processes triggered during sandbox execution (e.g., winword.exe, cmd.exe). Used to detect suspicious process trees and code execution chains.",
+        "Type Explanation": "[winword.exe, cmd.exe]. OR NULL"
+    },
+    "return_path_mismatch_with_from": {
+        "Detailed description": "True if the Return-Path header does not match the From header domain. This mismatch may suggest spoofing or indirect delivery methods that obscure the real sender.",
+        "Type Explanation": "1(Mis-match return path), 0(matched return path) "
+    },
+    "return_path_known_malicious": {
+        "Detailed description": "Indicates whether the Return-Path domain is found in threat intelligence as associated with spam, phishing, or malware campaigns.",
+        "Type Explanation": "1(malicious), 0(non-malicious)"
+    },
+    "return_path_reputation_score": {
+        "Detailed description": "Reputation score of the Return-Path domain based on email sending patterns and security posture. Helps assess legitimacy of envelope sender.",
+        "Type Explanation": "1.0(trustworthy),0.0(not trustworthy), inbetween (suspicious based on the confidence)"
+    },
+    "reply_path_known_malicious": {
+        "Detailed description": "Flags whether the Reply-To address is linked to malicious campaigns. Attackers often redirect replies to fraudulent mailboxes in phishing and BEC attacks.",
+        "Type Explanation": "1(malicious), 0(non-malicious)"
+    },
+    "reply_path_diff_from_sender": {
+        "Detailed description": "True if the Reply-To address is different from the From address. A divergence can indicate attempted redirection or identity spoofing.",
+        "Type Explanation": "1(difference exists), 0(no difference exists) "
+    },
+    "reply_path_reputation_score": {
+        "Detailed description": "Reputation score of the Reply-To domain, derived from sender behavior, complaints, and past flagged incidents. Helps in assessing reply legitimacy.",
+        "Type Explanation": "1.0(trustworthy),0.0(not trustworthy), inbetween (suspicious based on the confidence)"
+    },
+    "smtp_ip_known_malicious": {
+        "Detailed description": "True if the sending SMTP IP is listed in known blacklists or internal malicious IP feeds. Strong signal of bad sending infrastructure.",
+        "Type Explanation": "1- High Risk / 0- Low risk"
+    },
+    "smtp_ip_geo": {
+        "Detailed description": "Geographic region associated with the SMTP IP. Can be used to flag unexpected geographies or correlate with known regional threats.",
+        "Type Explanation": "Geo location category of SMTP IP address - Risk Score"
+    },
+    "smtp_ip_asn": {
+        "Detailed description": "Autonomous System Number (ASN) of the sending IP, often used to detect infrastructure-level patterns tied to malicious activity or hosting providers.",
+        "Type Explanation": "ASN category of SMTP IP address - Risk Score\n\n1- High Risk / 0-Low risk /anything inbetween"
+    },
+    "smtp_ip_reputation_score": {
+        "Detailed description": "Reputation score of the SMTP IP derived from historical sending behavior, blacklists, and infrastructure metadata.",
+        "Type Explanation": "1.0(trustworthy),0.0(untrustworthy), inbetween (suspicious based on the confidence)"
+    },
+    "domain_known_malicious": {
+        "Detailed description": "Flags if any domain used in the email (links, images, headers) is listed as malicious in threat intelligence. Strong domain-level indicator of risk.",
+        "Type Explanation": "1(malicious), 0(non-malicious)"
+    },
+    "url_count": {
+        "Detailed description": "Total number of distinct URLs extracted from the email content. High URL count can indicate spam or phishing payload delivery.",
+        "Type Explanation": "X (Unique URL count in email)"
+    },
+    "dns_morphing_detected": {
+        "Detailed description": "Flags whether DNS morphing or homograph attacks are detected (e.g., replacing \u2018o\u2019 with \u2018\u03bf\u2019). Used for detecting deceptive lookalike domains.",
+        "Type Explanation": "1(morphing),0(no morphing)"
+    },
+    "domain_tech_stack_match_score": {
+        "Detailed description": "Measures the mismatch between the expected and actual web technology stack of a target domain. Used to flag spoofed or cloned websites.",
+        "Type Explanation": "1.0(matched),0.0(not matched), 0.5 (half match)"
+    },
+    "is_high_risk_role_targeted": {
+        "Detailed description": "True if the email targets a high-privilege user (e.g., CEO, CFO). High-value targets are often the focus of spear-phishing and BEC campaigns.",
+        "Type Explanation": "1(targeted),0(not targeted)"
+    },
+    "sender_name_similarity_to_vip": {
+        "Detailed description": "Measures how visually or linguistically similar the sender\u2019s display name is to a known VIP. Helps detect impersonation at the identity level.",
+        "Type Explanation": "1.0(matched),0.0(not matched) inbetween (suspicious based on the confidence)"
+    },
+    "urgency_keywords_present": {
+        "Detailed description": "True if the email body or subject contains urgency-related phrases (e.g., 'immediate action', 'ASAP'). Such language is commonly used in social engineering.",
+        "Type Explanation": "1(Urgency sentiment or keywords exists), 0(Urgency sentiment or keywords does not exists) "
+    },
+    "request_type": {
+        "Detailed description": "Categorical value representing the type of request made in the email (e.g., wire transfer, password reset). Helps detect common phishing themes.",
+        "Type Explanation": "Type of email request\nValue\tDescription\n1. \"invoice_payment\":Request to pay a fake invoice, often with fake bank details.\n2. \"wire_transfer\": Direct request for a money transfer, usually to attacker-controlled accounts.\n3. \"gift_card_request\":Common in impersonation attacks, asking employee to purchase gift cards.\n4. \"credential_request\":Asks user to send or reset account login credentials.\n5.\"sensitive_data_request\":Requests HR/financial info like tax forms, salary slips, or employee lists.\n6:\"document_download\":Requests user to click/download a file that may be malicious or a phishing page.\n7.\"link_click\"\tAsks user to visit a suspicious link \u2014 often disguised as internal services.\n8.\"urgent_callback\":\tDemands user to call a number urgently \u2014 may connect to attacker.\n9.\"bank_detail_update\":Asks to change vendor or payroll bank details to attacker\u2019s account.\n10.\"invoice_verification\":Pretends to verify a pending invoice or payment as an authority.\n11.\"legal_threat\":\tUses legal urgency or false subpoenas to manipulate behavior.\n12.\"executive_request\"\tGeneric directive from \"CEO\" or VIP demanding immediate action.\n13.\"vpn_or_mfa_reset\":Tries to capture multi-factor credentials or VPN access.\n14.\"meeting_request\":Fakes calendar invites with malicious links (spear phishing).\n15.\"none\":No actionable request detected in the content."
+    },
+    "content_spam_score": {
+        "Detailed description": "Spam score based on a statistical model trained on known spam content. Provides a numerical likelihood that the message is unsolicited or bulk.",
+        "Type Explanation": "Likelyhood of unsolicited or bulk. \n1-max\n0- min\ninbetween - based on the confidence"
+    },
+    "user_marked_as_spam_before": {
+        "Detailed description": "True if the user has previously marked similar emails or sender patterns as spam. Helps in adaptive learning models for personalization.",
+        "Type Explanation": "1(user marked spam),0(user didn\u2019t mark)"
+    },
+    "bulk_message_indicator": {
+        "Detailed description": "Flags whether the email is likely part of a bulk message distribution. Bulk messages may bypass detection but still be unwanted or risky.",
+        "Type Explanation": "1(bulky mail), 0(non bulky mail) "
+    },
+    "unsubscribe_link_present": {
+        "Detailed description": "True if the email includes an unsubscribe link. Presence can indicate marketing content but can also be faked in phishing.",
+        "Type Explanation": "1(Unsubscribed link present), 0(Unsubscribed link not present) "
+    },
+    "marketing_keywords_detected": {
+        "Detailed description": "Likelyhood of being a marketing content. if marketing or promotional language is detected in the content. Used for classifying graymail vs. more harmful spam.",
+        "Type Explanation": "1(Marketing term or sentiment or entity exists), 0(Marketing term or sentiment or entity does not exists) "
+    },
+    "html_text_ratio": {
+        "Detailed description": "Ratio of visible text to HTML tags.. Extremely low ratios can indicate tracking pixels, cloaking, or hidden malicious payloads.",
+        "Type Explanation": "1.0(non-malicious),0.0(malicious)\ninbetween - likelihood of normal message"
+    },
+    "image_only_email": {
+        "Detailed description": "Flags if the email contains only an image without meaningful text. Common in phishing to evade text-based detection.",
+        "Type Explanation": "1(Image only message, no text found), 0(image and text both found) "
+    },
+    "spf_result": {
+        "Detailed description": "Result of SPF (Sender Policy Framework) check to determine if sender\u2019s IP is authorized to send for the domain.",
+        "Type Explanation": "\nValue - Description\n1.pass -The sending IP is authorized by the domain's SPF record.\n2.fail - The IP is not authorized; treat as spoofed.\n3.softfail - The IP is not authorized, but the domain owner prefers not to reject. Treated as suspicious.\n4.neutral - The domain makes no claim about this IP (e.g., ?all).\n5.none - No SPF record found for the domain.\n6.temperror - A temporary DNS or infrastructure error occurred during SPF check. Retry later.\n7.permerror - SPF record is malformed or exceeds lookup limits (10 DNS lookups, etc.). Treated as fail by some receivers."
+    },
+    "dkim_result": {
+        "Detailed description": "Result of DKIM (DomainKeys Identified Mail) validation to verify that the message has not been tampered with in transit.",
+        "Type Explanation": "\n1.pass\t DKIM signature is valid, content was not altered, and signed by authorized domain.\t\n2.fail\tSignature was present but did not verify (tampered or forged).\t\n3. none\tNo DKIM signature was present in the message.\t\n4.policy\tSignature failed due to a domain policy (rare; used in strict setups).\t\n5.neutral Verification status is inconclusive (e.g., signature exists, but domain is ambiguous).\t\n6.temperror\tTemporary failure (e.g., DNS resolution issue while fetching public key).\t\n7.permerror\t Permanent failure due to invalid DKIM record or malformed signature."
+    },
+    "dmarc_result": {
+        "Detailed description": "Result of DMARC validation combining SPF and DKIM checks to enforce domain-level policies and prevent spoofing.",
+        "Type Explanation": "\n1. pass\tEmail passed DMARC validation: either SPF or DKIM passed and is aligned with the From domain.\t\n2. fail\tDMARC validation failed: both SPF and DKIM either failed or were misaligned.\t\n3. none\tNo DMARC record published for the domain (no policy to enforce).\t\n4. temperror\t Temporary error (e.g., DNS lookup timeout). Retry may succeed.\t\n5. permerror\tPermanent error (e.g., malformed DMARC record)."
+    },
+    "reverse_dns_valid": {
+        "Detailed description": "True if the reverse DNS record for the sending IP resolves back to the same hostname, validating IP legitimacy.",
+        "Type Explanation": "1(Good), 0(bad) "
+    },
+    "tls_version": {
+        "Detailed description": "TLS version used during the SMTP transaction. Outdated versions may indicate weaker encryption or spoofing attempts.",
+        "Type Explanation": "[TLS 1.3,TLS 1.2,TLS 1.1,TLS 1.0, SSL 3.0(outdated), None(no encrytion)]"
+    },
+    "total_links_detected": {
+        "Detailed description": "Total number of hyperlinks extracted from the message, including visible and hidden links. Higher counts can indicate obfuscation.",
+        "Type Explanation": "X (Total number of links in email)"
+    },
+    "url_shortener_detected": {
+        "Detailed description": "True if known URL shorteners (e.g., bit.ly, tinyurl) are used. Can obscure final destination and delay detection.",
+        "Type Explanation": "1(Url shortner used), 0(Url shortner not used) "
+    },
+    "url_redirect_chain_length": {
+        "Detailed description": "Number of hops or redirects a URL follows before reaching the final destination. Long chains can indicate evasion.",
+        "Type Explanation": "X(X additional hop (one redirect) in the URL chain), 0(no urls)"
+    },
+    "final_url_known_malicious": {
+        "Detailed description": "True if the any final resolved URL after redirection is malicious. Indicates a successful phishing or drive-by attack endpoint.",
+        "Type Explanation": "1(bad), 0(good) "
+    },
+    "url_decoded_spoof_detected": {
+        "Detailed description": "Flags if URL path or parameters are decoded and resemble known brands or login portals. Useful for spoof detection.",
+        "Type Explanation": "1(bad), 0(good) "
+    },
+    "url_reputation_score": {
+        "Detailed description": "Reputation score derived from all URLs in the email. Includes blacklist hits, age, categorization, and past abuse history.",
+        "Type Explanation": "0.0(suspicious),1.0(not suspicious); anythng inbetween"
+    },
+    "ssl_validity_status": {
+        "Detailed description": "Indicates whether the SSL certificate of the final destination URL is valid, expired, or self-signed. Adds to credibility scoring.",
+        "Type Explanation": "1.valid\t The site presents a valid SSL certificate, trusted by a recognized CA.\n2.expired\tCertificate has expired \u2014 often used by phishing sites.\n3.self_signed\t Certificate is self-signed or untrusted \u2014 a red flag.\n4.mismatch\t The certificate\u2019s CN/SAN does not match the domain \u2014 indicates spoofing.\n5.revoked\tThe certificate has been revoked by the CA \u2014 rarely seen but serious.\n6.invalid_chain\t Intermediate certs are missing or chain is broken \u2014 site not fully trusted.\n7.no_ssl\t The site does not support HTTPS (only HTTP) \u2014 insecure and suspicious.\n8.error\tCould not complete SSL handshake or verify (e.g., timeout, TLS error)."
+    },
+    "site_visual_similarity_to_known_brand": {
+        "Detailed description": "Score based on how visually similar the final landing page is to a popular brand (e.g., Microsoft, Google). Indicates phishing.",
+        "Type Explanation": "1.0(malicious),0(non-malicious); inbetween value based on the confidence"
+    },
+    "url_rendering_behavior_score": {
+        "Detailed description": "Behavior score from rendering the URL in a controlled environment to observe JavaScript actions, redirects, or malicious scripts.",
+        "Type Explanation": "1.0(suspicious),0.0(not suspicious); inbetween based on the confidence"
+    },
+    "link_rewritten_through_redirector": {
+        "Detailed description": "True if a URL has been rewritten to pass through a security redirector for click tracking or threat inspection.",
+        "Type Explanation": "1(Yes), 0(No) "
+    },
+    "token_validation_success": {
+        "Detailed description": "Indicates whether the security token embedded in the rewritten URL passed validation at the redirector endpoint. Failing tokens may indicate tampering or expired access.",
+        "Type Explanation": "1(good), 0(bad) "
+    },
+    "Analysis of the qrcode if present": {
+        "Detailed description": NaN,
+        "Type Explanation": "1 - Yes; 2- No\n[Note : consider QR code as link and process the link]"
+    }
+}
