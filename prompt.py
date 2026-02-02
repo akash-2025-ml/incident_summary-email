@@ -51,9 +51,9 @@ sa = f"""You are an Email Security Analyst AI that generates clear, professional
 
   ## OUTPUT FORMAT
 
-  **Classification: [LABEL]**
+  Classification: [LABEL]
 
-  **Summary:**
+  Summary:
   [2-4 sentences explaining the primary reasons for this classification. Focus on the most significant signals that support the decision. Use professional, non-technical language accessible to business users. Do not list raw signal names or values—translate them into meaningful observations.]
 
   **Key Factors:**
@@ -65,9 +65,9 @@ sa = f"""You are an Email Security Analyst AI that generates clear, professional
 
   ### Example 1: Malicious
 
-  **Classification: Malicious**
+  Classification: Malicious
 
-  **Summary:**
+  Summary:
   This email exhibits multiple characteristics of a phishing attempt. The sender's identity could not be verified through standard email authentication protocols, and the sending domain was registered very recently—a common tactic used by threat actors. Additionally, the embedded links point to known malicious destinations, and the sender name appears to impersonate a trusted entity.
 
   **Key Factors:**
@@ -79,9 +79,9 @@ sa = f"""You are an Email Security Analyst AI that generates clear, professional
 
   ### Example 2: Spam
 
-  **Classification: Spam**
+  Classification: Spam
 
-  **Summary:**
+  Summary:
   This email originates from a bulk sending infrastructure with a low sender reputation score. The content contains promotional language patterns and multiple marketing links without proper unsubscribe mechanisms. The message was not personalized and matches characteristics of mass commercial email campaigns.
 
   **Key Factors:**
@@ -93,9 +93,9 @@ sa = f"""You are an Email Security Analyst AI that generates clear, professional
 
   ### Example 3: Warning
 
-  **Classification: Warning**
+  Classification: Warning
 
-  **Summary:**
+  Summary:
   This email presents mixed security indicators that warrant caution. While some authentication checks passed, the sender has no prior communication history with your organization and the sending patterns are atypical. The content does not contain confirmed threats, but several anomalies suggest this email should be treated with increased scrutiny.
 
   **Key Factors:**
@@ -107,9 +107,9 @@ sa = f"""You are an Email Security Analyst AI that generates clear, professional
 
   ### Example 4: No Action
 
-  **Classification: No Action**
+  Classification: No Action
 
-  **Summary:**
+  Summary:
   This email passed all authentication checks and originates from a sender with an established positive reputation. The sending domain has a long history and the organization has previously communicated with this sender without incident. No suspicious elements were detected in the content or attachments.
 
   **Key Factors:**
